@@ -110,7 +110,7 @@ class bookshelf(models.Model):
 
 class CounterManager(models.Manager):
     def update(self, counter_name, counter_value):
-        self.update_or_create(name=counter_name, defaults = {"value":counter_value, "update_time":dateTime()})
+        self.update_or_create(name=counter_name, defaults = {"value":counter_value, "update_time":dateTime})
 
     def update_known_counters(self):
         self.update(counter_allbooks, Book.objects.all().count())
