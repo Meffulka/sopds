@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
+from django.utils import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext_lazy as _lazy
 
@@ -42,7 +42,7 @@ class Book(models.Model):
     format = models.CharField(max_length=SIZE_BOOK_FORMAT)
     catalog = models.ForeignKey('Catalog',db_index=True, on_delete=models.CASCADE)
     cat_type = models.IntegerField(null=False, default=0)
-    registerdate = models.DateTimeField(null=False, default=timezone.now)
+    registerdate = models.DateTimeField(null=False, default=datetime.now)
     docdate = models.CharField(max_length=SIZE_BOOK_DOCDATE,db_index=True)
     #favorite = models.IntegerField(null=False, default=0)
     lang = models.CharField(max_length=SIZE_BOOK_LANG)
@@ -102,12 +102,12 @@ class bseries(models.Model):
 class bookshelf(models.Model):
     user = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, db_index=True, on_delete=models.CASCADE)
-    readtime = models.DateTimeField(null=False, default=timezone.now, db_index=True)
+    readtime = models.DateTimeField(null=False, default=datetime.now, db_index=True)
 
 
 class CounterManager(models.Manager):
     def update(self, counter_name, counter_value):
-        self.update_or_create(name=counter_name, defaults = {"value":counter_value, "update_time":timezone.now()})
+        self.update_or_create(name=counter_name, defaults = {"value":counter_value, "update_time":datetime.now()})
 
     def update_known_counters(self):
         self.update(counter_allbooks, Book.objects.all().count())
@@ -135,7 +135,7 @@ class CounterManager(models.Manager):
 class Counter(models.Model):
     name = models.CharField(primary_key=True, null=False, blank=False, max_length=16)
     value = models.IntegerField(null=False, default=0)
-    update_time = models.DateTimeField(null=False, default=timezone.now)
+    update_time = models.DateTimeField(null=False, default=datetime.now)
     obj = models.Manager()
     objects = CounterManager()
     
