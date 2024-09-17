@@ -36,7 +36,7 @@ LangCodes = {1:'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮ
 lang_menu = {1:_lazy('Cyrillic'), 2:_lazy('Latin'), 3:_lazy('Digits'), 9:_lazy('Other symbols'), 0:_lazy('Show all')}
 
 tznow = timezone.now()
-dateTime ='{:%d-%m-%Y:%H:%M:%S}'.format(tznow)
+dateTime ='{:%d-%m-%Y:%H:%M:%S+00}'.format(tznow)
 
 class Book(models.Model):
     filename = models.CharField(max_length=SIZE_BOOK_FILENAME,db_index=True)
